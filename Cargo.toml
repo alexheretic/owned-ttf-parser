@@ -1,0 +1,19 @@
+[package]
+name = "owned_ttf_parser"
+# Version should be inline with ttf-parser
+version = "0.5.0"
+authors = ["Alex Butler <alexheretic@gmail.com>"]
+edition = "2018"
+description = "ttf-parser plus support for owned data"
+repository = "https://github.com/alexheretic/owned-ttf-parser"
+keywords = ["ttf", "truetype", "otf", "opentype"]
+license = "Apache-2.0"
+readme="README.md"
+
+[dependencies]
+ttf-parser = { version = "0.5", default-features = false }
+
+[features]
+default = ["std", "ttf-parser/default"]
+# Activates usage of std.
+std = []
