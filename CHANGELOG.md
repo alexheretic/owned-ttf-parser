@@ -1,4 +1,4 @@
-# Unreleased
+# 0.5.1
 * Support no_std.
 
 # 0.5
