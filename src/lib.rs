@@ -13,6 +13,7 @@
 //!
 //! assert_eq!(font_ref.ascender(), 2254);
 //! ```
+#![cfg_attr(not(feature = "std"), no_std)]
 extern crate alloc;
 
 mod convert;
