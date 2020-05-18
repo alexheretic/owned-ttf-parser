@@ -1,3 +1,6 @@
+# 0.6
+* Update _ttf-parser_ to `0.6`.
+
 # 0.5.1
 * Support no_std.
 
