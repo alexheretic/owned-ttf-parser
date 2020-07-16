@@ -1,17 +1,17 @@
 //! Extends [ttf_parser](https://docs.rs/ttf-parser) with owned version of
-//! [`Font`](struct.Font.html): [`OwnedFont`](struct.OwnedFont.html).
+//! [`Face`](struct.Face.html): [`OwnedFace`](struct.OwnedFace.html).
 //!
 //! Re-exports `ttf_parser::*`.
 //!
 //! # Example
 //! ```
-//! use owned_ttf_parser::{AsFontRef, OwnedFont, Font};
+//! use owned_ttf_parser::{AsFaceRef, OwnedFace, Face};
 //!
 //! # let owned_font_data = include_bytes!("../fonts/font.ttf").to_vec();
-//! let owned_font = OwnedFont::from_vec(owned_font_data, 0).unwrap();
-//! let font_ref: &Font<'_> = owned_font.as_font();
+//! let owned_face = OwnedFace::from_vec(owned_font_data, 0).unwrap();
+//! let face_ref: &Face<'_> = owned_face.as_face_ref();
 //!
-//! assert_eq!(font_ref.ascender(), 2254);
+//! assert_eq!(face_ref.ascender(), 2254);
 //! ```
 #![cfg_attr(not(feature = "std"), no_std)]
 extern crate alloc;

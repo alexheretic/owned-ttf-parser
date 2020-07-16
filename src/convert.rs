@@ -1,19 +1,19 @@
-/// Used to perform a cheap conversion to a [`Font`](struct.Font.html) reference.
-pub trait AsFontRef {
-    /// Convert to a [`Font`](struct.Font.html) reference.
-    fn as_font(&self) -> &ttf_parser::Font<'_>;
+/// Used to perform a cheap conversion to a [`Face`](struct.Face.html) reference.
+pub trait AsFaceRef {
+    /// Convert to a [`Face`](struct.Face.html) reference.
+    fn as_face_ref(&self) -> &ttf_parser::Face<'_>;
 }
 
-impl AsFontRef for ttf_parser::Font<'_> {
+impl AsFaceRef for ttf_parser::Face<'_> {
     #[inline]
-    fn as_font(&self) -> &ttf_parser::Font<'_> {
+    fn as_face_ref(&self) -> &ttf_parser::Face<'_> {
         self
     }
 }
 
-impl AsFontRef for &ttf_parser::Font<'_> {
+impl AsFaceRef for &ttf_parser::Face<'_> {
     #[inline]
-    fn as_font(&self) -> &ttf_parser::Font<'_> {
+    fn as_face_ref(&self) -> &ttf_parser::Face<'_> {
         self
     }
 }

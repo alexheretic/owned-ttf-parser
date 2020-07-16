@@ -4,16 +4,16 @@ owned_ttf_parser
 ================
 [ttf-parser](https://github.com/RazrFalcon/ttf-parser) plus support for owned data.
 
-Provides `OwnedFont`, `AsFontRef` and re-exports `ttf_parser::*`.
+Provides `OwnedFace`, `AsFaceRef` and re-exports `ttf_parser::*`.
 
 ## Example
 ```rust
-use owned_ttf_parser::{AsFontRef, OwnedFont, Font};
+use owned_ttf_parser::{AsFaceRef, OwnedFace, Face};
 
-let owned_font = OwnedFont::from_vec(owned_font_data, 0).unwrap();
-let font_ref: &Font<'_> = owned_font.as_font();
+let owned_face = OwnedFace::from_vec(owned_face_data, 0).unwrap();
+let face_ref: &Face<'_> = owned_face.as_face_ref();
 
-assert_eq!(font_ref.ascender(), 2254);
+assert_eq!(face_ref.ascender(), 2254);
 ```
 
 ## no_std
