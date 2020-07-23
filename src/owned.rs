@@ -17,9 +17,9 @@ impl OwnedFace {
     /// let owned_face = OwnedFace::from_vec(owned_font_data, 0).unwrap();
     /// ```
     // Note: not `try_from_vec` to better mimic `ttf_parser::Face::from_data`.
-    pub fn from_vec(data: Vec<u8>, index: u32) -> Option<Self> {
+    pub fn from_vec(data: Vec<u8>, index: u32) -> Result<Self, ttf_parser::FaceParsingError> {
         let inner = SelfRefVecFace::try_from_vec(data, index)?;
-        Some(Self(inner))
+        Ok(Self(inner))
     }
 }
 
@@ -52,7 +52,10 @@ struct SelfRefVecFace {
 
 impl SelfRefVecFace {
     /// Creates an underlying face object from owned data.
-    fn try_from_vec(data: Vec<u8>, index: u32) -> Option<Pin<Box<Self>>> {
+    fn try_from_vec(
+        data: Vec<u8>,
+        index: u32,
+    ) -> Result<Pin<Box<Self>>, ttf_parser::FaceParsingError> {
         let face = Self {
             data,
             face: None,
@@ -66,7 +69,7 @@ impl SelfRefVecFace {
             let mut_inner = mut_ref.get_unchecked_mut();
             mut_inner.face = Some(ttf_parser::Face::from_slice(slice, index)?);
         }
-        Some(b)
+        Ok(b)
     }
 
     // Must not leak the fake 'static lifetime that we lied about earlier to the
