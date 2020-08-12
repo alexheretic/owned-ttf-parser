@@ -1,9 +1,9 @@
 #[cfg(not(feature = "std"))]
 use alloc::{boxed::Box, vec::Vec};
-use core::{fmt, marker::PhantomPinned, pin::Pin, slice};
+use core::fmt;
 
 /// An owned version of font [`Face`](struct.Face.html).
-pub struct OwnedFace(Pin<Box<SelfRefVecFace>>);
+pub struct OwnedFace(Box<SelfRefVecFace>);
 
 impl OwnedFace {
     /// Creates an `OwnedFace` from owned data.
@@ -32,54 +32,36 @@ impl fmt::Debug for OwnedFace {
 impl crate::convert::AsFaceRef for OwnedFace {
     #[inline]
     fn as_face_ref(&self) -> &ttf_parser::Face<'_> {
-        self.0.inner_ref()
+        &self.0.face
     }
 }
 
 impl crate::convert::AsFaceRef for &OwnedFace {
     #[inline]
     fn as_face_ref(&self) -> &ttf_parser::Face<'_> {
-        self.0.inner_ref()
+        &self.0.face
     }
 }
 
 // Face data in a `Vec` with a self-referencing `Face`.
 struct SelfRefVecFace {
-    data: Vec<u8>,
-    face: Option<ttf_parser::Face<'static>>,
-    _pin: PhantomPinned,
+    _data: Box<[u8]>, // safety: this data must never be mutated or dropped while face lives
+    face: ttf_parser::Face<'static>, // safe to copy, but fairly large
 }
 
 impl SelfRefVecFace {
     /// Creates an underlying face object from owned data.
-    fn try_from_vec(
-        data: Vec<u8>,
-        index: u32,
-    ) -> Result<Pin<Box<Self>>, ttf_parser::FaceParsingError> {
-        let face = Self {
-            data,
-            face: None,
-            _pin: PhantomPinned,
-        };
-        let mut b = Box::pin(face);
-        unsafe {
+    fn try_from_vec(data: Vec<u8>, index: u32) -> Result<Box<Self>, ttf_parser::FaceParsingError> {
+        let _data = data.into_boxed_slice();
+        let face = unsafe {
             // 'static lifetime is a lie, this data is owned, it has pseudo-self lifetime.
-            let slice: &'static [u8] = slice::from_raw_parts(b.data.as_ptr(), b.data.len());
-            let mut_ref: Pin<&mut Self> = Pin::as_mut(&mut b);
-            let mut_inner = mut_ref.get_unchecked_mut();
-            mut_inner.face = Some(ttf_parser::Face::from_slice(slice, index)?);
-        }
-        Ok(b)
+            let slice: &'static [u8] = extend_lifetime(&*_data);
+            ttf_parser::Face::from_slice(slice, index)?
+        };
+        Ok(Box::new(Self { _data, face }))
     }
+}
 
-    // Must not leak the fake 'static lifetime that we lied about earlier to the
-    // compiler. Since the lifetime 'a will not outlive our owned data it's
-    // safe to provide Face<'a>
-    #[inline]
-    fn inner_ref<'a>(self: &'a Pin<Box<Self>>) -> &'a ttf_parser::Face<'a> {
-        match self.face.as_ref() {
-            Some(f) => f,
-            None => unsafe { core::hint::unreachable_unchecked() },
-        }
-    }
+unsafe fn extend_lifetime<'b, T: ?Sized>(r: &'b T) -> &'static T {
+    core::mem::transmute::<&'b T, &'static T>(r)
 }
