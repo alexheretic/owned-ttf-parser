@@ -1,3 +1,6 @@
+# 0.9
+* Update _ttf-parser_ to `0.9` [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#090---2020-12-05).
+
 # 0.8
 * Update _ttf-parser_ to `0.8` [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#080---2020-07-21).
 * `OwnedFace::from_vec` now returns a `Result`.
