@@ -76,6 +76,7 @@ impl SelfRefVecFace {
     // compiler. Since the lifetime 'a will not outlive our owned data it's
     // safe to provide Face<'a>
     #[inline]
+    #[allow(clippy::needless_lifetimes)] // explicit is nice as it's important 'static isn't leaked
     fn inner_ref<'a>(self: &'a Pin<Box<Self>>) -> &'a ttf_parser::Face<'a> {
         match self.face.as_ref() {
             Some(f) => f,
