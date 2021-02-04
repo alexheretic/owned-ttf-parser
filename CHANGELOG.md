@@ -1,3 +1,6 @@
+# 0.11
+* Update _ttf-parser_ to `0.11` [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0110---2021-02-04).
+
 # 0.10
 * Update _ttf-parser_ to `0.10` [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0100---2021-01-16).
 * Add `variable-fonts` features, alongside existing `std` feature (both default) inline with upstream.
