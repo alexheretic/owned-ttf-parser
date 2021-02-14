@@ -1,3 +1,6 @@
+# 0.12
+* Update _ttf-parser_ to `0.12` [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0120---2021-02-14).
+
 # 0.11
 * Update _ttf-parser_ to `0.11` [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0110---2021-02-04).
 
