@@ -1,3 +1,6 @@
+# 0.13.0
+* Update _ttf-parser_ to `0.13` [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0130---2021-10-24).
+
 # 0.12.1
 * Update _ttf-parser_ to `0.12.3` to ensure consistent glyph bounding box behaviour.
 
