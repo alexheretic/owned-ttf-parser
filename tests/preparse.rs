@@ -25,7 +25,7 @@ fn preparse_glyphs_kerning() {
     let (a, b) = (GlyphId(92), GlyphId(93));
 
     assert_eq!(
-        pre_parse.glyphs_kerning(a, b),
+        pre_parse.glyphs_hor_kerning(a, b),
         face.tables()
             .kern
             .iter()

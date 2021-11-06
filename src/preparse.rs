@@ -8,9 +8,25 @@ use crate::{AsFaceRef, OwnedFace};
 
 /// A `Face` with cmap & kern subtables parsed once on initialization.
 ///
-/// For best performance use [`PreParsedSubtables::glyph_index`] &
-/// [`PreParsedSubtables::glyphs_kerning`] rather than `.as_face_ref()`
-/// equivalents that must parse their subtables on each call.
+/// Provides much faster [`PreParsedSubtables::glyph_index`] &
+/// [`PreParsedSubtables::glyphs_hor_kerning`] methods compared to the
+/// `.as_face_ref()` equivalents that must parse their subtables on each call.
+///
+/// # Example
+/// ```
+/// use owned_ttf_parser::{AsFaceRef, GlyphId, OwnedFace, PreParsedSubtables};
+///
+/// # let owned_font_data = include_bytes!("../fonts/font.ttf").to_vec();
+/// let owned_face = OwnedFace::from_vec(owned_font_data, 0).unwrap();
+/// let faster_face = PreParsedSubtables::from(owned_face);
+///
+/// // Lookup a GlyphId using the pre-parsed cmap subtables
+/// // this is much faster than doing: .as_face_ref().glyph_index('x')
+/// assert_eq!(faster_face.glyph_index('x'), Some(GlyphId(91)));
+///
+/// // The rest of the methods are still available as normal
+/// assert_eq!(faster_face.as_face_ref().ascender(), 2254);
+/// ```
 #[derive(Clone)]
 pub struct PreParsedSubtables<'face, F> {
     pub(crate) face: F,
@@ -39,8 +55,10 @@ impl<F> fmt::Debug for PreParsedSubtables<'_, F> {
 
 #[derive(Clone)]
 pub(crate) struct FaceSubtables<'face> {
+    /// Unicode cmap subtables.
     cmap: Vec<cmap::Subtable<'face>>,
-    kern: Vec<kern::Subtable<'face>>,
+    /// Horizontal kern subtables.
+    h_kern: Vec<kern::Subtable<'face>>,
 }
 
 impl<'face> From<&Face<'face>> for FaceSubtables<'face> {
@@ -52,14 +70,14 @@ impl<'face> From<&Face<'face>> for FaceSubtables<'face> {
             .flat_map(|cmap| cmap.subtables)
             .filter(|st| st.is_unicode())
             .collect();
-        let kern = face
+        let h_kern = face
             .tables()
             .kern
             .iter()
             .flat_map(|c| c.subtables)
             .filter(|st| st.horizontal && !st.variable)
             .collect();
-        Self { cmap, kern }
+        Self { cmap, h_kern }
     }
 }
 
@@ -70,11 +88,11 @@ impl<F> PreParsedSubtables<'_, F> {
         self.subtables.cmap.iter().find_map(|t| t.glyph_index(c))
     }
 
-    /// Returns kerning for a pair of glyphs using pre-parsed kern subtables.
+    /// Returns horizontal kerning for a pair of glyphs using pre-parsed kern subtables.
     #[inline]
-    pub fn glyphs_kerning(&self, first: GlyphId, second: GlyphId) -> Option<i16> {
+    pub fn glyphs_hor_kerning(&self, first: GlyphId, second: GlyphId) -> Option<i16> {
         self.subtables
-            .kern
+            .h_kern
             .iter()
             .find_map(|st| st.glyphs_kerning(first, second))
     }
