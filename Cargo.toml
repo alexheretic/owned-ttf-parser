@@ -11,7 +11,7 @@ license = "Apache-2.0"
 readme="README.md"
 
 [dependencies]
-ttf-parser = { version = "0.13.1", default-features = false }
+ttf-parser = { version = "0.13.2", default-features = false }
 
 [features] 
 default = ["std", "opentype-layout", "variable-fonts", "glyph-names"]
@@ -27,3 +27,10 @@ opentype-layout = ["ttf-parser/opentype-layout"]
 # which means we have to store them in ttf-parser. And there are almost 500 of them.
 # By disabling this feature a user can reduce binary size a bit.
 glyph-names = ["ttf-parser/glyph-names"]
+# Enables heap allocations during gvar table parsing used by Apple's variable fonts.
+# Due to the way gvar table is structured, we cannot avoid allocations.
+# By default, only up to 32 variable tuples will be allocated on the stack,
+# while the spec allows up to 4095. Most variable fonts use 10-20 tuples,
+# so our limit is suitable for most of the cases. But if you need full support, you have to
+# enable this feature.
+gvar-alloc = ["std", "ttf-parser/gvar-alloc"]
