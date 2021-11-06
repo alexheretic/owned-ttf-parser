@@ -1,4 +1,4 @@
-# Unreleased
+# 0.13.2
 * Add `PreParsedSubtables` struct allowing pre-parsing of cmap & kern face subtables at initialization
   time for re-use. This allows much faster `glyph_index` & `glyphs_hor_kerning` avoiding the need
   to parse subtables inside each call.
