@@ -18,7 +18,9 @@ extern crate alloc;
 
 mod convert;
 mod owned;
+mod preparse;
 
 pub use convert::*;
 pub use owned::*;
+pub use preparse::*;
 pub use ttf_parser::*;

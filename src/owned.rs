@@ -1,3 +1,4 @@
+use crate::preparse::{FaceSubtables, PreParsedSubtables};
 #[cfg(not(feature = "std"))]
 use alloc::{boxed::Box, vec::Vec};
 use core::{fmt, marker::PhantomPinned, pin::Pin, slice};
@@ -20,6 +21,20 @@ impl OwnedFace {
     pub fn from_vec(data: Vec<u8>, index: u32) -> Result<Self, ttf_parser::FaceParsingError> {
         let inner = SelfRefVecFace::try_from_vec(data, index)?;
         Ok(Self(inner))
+    }
+
+    pub(crate) fn pre_parse_subtables(self) -> PreParsedSubtables<'static, Self> {
+        // build subtables referencing fake static data
+        let subtables = FaceSubtables::from(match self.0.face.as_ref() {
+            Some(f) => f,
+            None => unsafe { core::hint::unreachable_unchecked() },
+        });
+
+        // bundle everything together so self-reference lifetimes hold
+        PreParsedSubtables {
+            face: self,
+            subtables,
+        }
     }
 }
 
