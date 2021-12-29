@@ -1,3 +1,6 @@
+# 0.14.0
+* Update _ttf-parser_ to `0.14.0`, [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0140---2021-12-28).
+
 # 0.13.2
 * Add `PreParsedSubtables` struct allowing pre-parsing of cmap & kern face subtables at initialization
   time for re-use. This allows much faster `glyph_index` & `glyphs_hor_kerning` avoiding the need

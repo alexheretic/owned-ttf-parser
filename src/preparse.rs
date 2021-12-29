@@ -85,7 +85,10 @@ impl<F> PreParsedSubtables<'_, F> {
     /// Maps a character to a `GlyphId` using pre-parsed unicode cmap subtables.
     #[inline]
     pub fn glyph_index(&self, c: char) -> Option<GlyphId> {
-        self.subtables.cmap.iter().find_map(|t| t.glyph_index(c))
+        self.subtables
+            .cmap
+            .iter()
+            .find_map(|t| t.glyph_index(c.into()))
     }
 
     /// Returns horizontal kerning for a pair of glyphs using pre-parsed kern subtables.
