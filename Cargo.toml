@@ -1,7 +1,7 @@
 [package]
 name = "owned_ttf_parser"
 # Version should be inline with ttf-parser
-version = "0.14.0"
+version = "0.15.0"
 authors = ["Alex Butler <alexheretic@gmail.com>"]
 edition = "2018"
 description = "ttf-parser plus support for owned data"
@@ -11,10 +11,10 @@ license = "Apache-2.0"
 readme="README.md"
 
 [dependencies]
-ttf-parser = { version = "0.14", default-features = false }
+ttf-parser = { version = "0.15", default-features = false }
 
 [features] 
-default = ["std", "opentype-layout", "variable-fonts", "glyph-names"]
+default = ["std", "opentype-layout", "apple-layout", "variable-fonts", "glyph-names"]
 # Activates usage of std.
 std = ["ttf-parser/std"]
 # Enables variable fonts support. Increases binary size almost twice.
@@ -22,6 +22,8 @@ std = ["ttf-parser/std"]
 variable-fonts = ["ttf-parser/variable-fonts"]
 # Enables GDEF, GPOS and GSUB tables.
 opentype-layout = ["ttf-parser/opentype-layout"]
+# Enables ankr, feat, format1 subtable in kern, kerx, morx and trak tables.
+apple-layout = ["ttf-parser/apple-layout"]
 # Enables glyph name query via `Face::glyph_name`.
 # TrueType fonts do not store default glyph names, to reduce file size,
 # which means we have to store them in ttf-parser. And there are almost 500 of them.

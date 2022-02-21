@@ -1,3 +1,6 @@
+# 0.15.0
+* Update _ttf-parser_ to `0.15.0`, add `apple-layout` feature [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0150---2022-02-20).
+
 # 0.14.0
 * Update _ttf-parser_ to `0.14.0`, [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0140---2021-12-28).
 
