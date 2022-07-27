@@ -1,3 +1,6 @@
+# Unreleased (0.15.1)
+* Add `OwnedFace::as_slice`, `OwnedFace::into_vec`.
+
 # 0.15.0
 * Update _ttf-parser_ to `0.15.0`, add `apple-layout` feature [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0150---2022-02-20).
 

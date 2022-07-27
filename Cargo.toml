@@ -11,7 +11,7 @@ license = "Apache-2.0"
 readme="README.md"
 
 [dependencies]
-ttf-parser = { version = "0.15", default-features = false }
+ttf-parser = { version = "0.15.2", default-features = false }
 
 [features] 
 default = ["std", "opentype-layout", "apple-layout", "variable-fonts", "glyph-names"]

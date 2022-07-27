@@ -36,6 +36,35 @@ impl OwnedFace {
             subtables,
         }
     }
+
+    /// Extracts a slice containing the data passed into [`OwnedFace::from_vec`].
+    ///
+    /// # Example
+    /// ```
+    /// # use owned_ttf_parser::OwnedFace;
+    /// # let owned_font_data = include_bytes!("../fonts/font.ttf").to_vec();
+    /// let data_clone = owned_font_data.clone();
+    /// let owned_face = OwnedFace::from_vec(owned_font_data, 0).unwrap();
+    /// assert_eq!(owned_face.as_slice(), data_clone);
+    /// ```
+    pub fn as_slice(&self) -> &[u8] {
+        &self.0.data
+    }
+
+    /// Unwraps the data passed into [`OwnedFace::from_vec`].
+    ///
+    /// # Example
+    /// ```
+    /// # use owned_ttf_parser::OwnedFace;
+    /// # let owned_font_data = include_bytes!("../fonts/font.ttf").to_vec();
+    /// let data_clone = owned_font_data.clone();
+    /// let owned_face = OwnedFace::from_vec(owned_font_data, 0).unwrap();
+    /// assert_eq!(owned_face.into_vec(), data_clone);
+    /// ```
+    pub fn into_vec(self) -> Vec<u8> {
+        // safe as the `Face` is dropped.
+        unsafe { Pin::into_inner_unchecked(self.0).data }
+    }
 }
 
 impl fmt::Debug for OwnedFace {
