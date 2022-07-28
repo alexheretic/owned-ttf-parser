@@ -1,4 +1,4 @@
-# Unreleased (0.15.1)
+# 0.15.1
 * Add `OwnedFace::as_slice`, `OwnedFace::into_vec`.
 
 # 0.15.0
