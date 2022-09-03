@@ -11,8 +11,7 @@ fn set_variation() {
     let denorm_coord = denormalize_coord(axis, coord);
     assert!(
         (denorm_coord - axis.def_value).abs() < f32::EPSILON,
-        "Unexpected coord value `{:.1}`",
-        denorm_coord
+        "Unexpected coord value `{denorm_coord:.1}`"
     );
 
     // after setting variation on the owned face it should change
@@ -25,8 +24,7 @@ fn set_variation() {
     let denorm_coord = denormalize_coord(axis, coord);
     assert!(
         (denorm_coord - new_value).abs() < f32::EPSILON,
-        "Unexpected coord value `{:.1}`",
-        denorm_coord
+        "Unexpected coord value `{denorm_coord:.1}`"
     );
 }
 
