@@ -1,10 +1,9 @@
 //! Logic to avoid re-parsing subtables in ttf_parser::Face methods
+use crate::{AsFaceRef, FaceMut, OwnedFace};
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::fmt;
 use ttf_parser::{cmap, kern, Face, GlyphId};
-
-use crate::{AsFaceRef, OwnedFace};
 
 /// A `Face` with cmap & kern subtables parsed once on initialization.
 ///
@@ -108,5 +107,33 @@ where
     #[inline]
     fn as_face_ref(&self) -> &ttf_parser::Face<'_> {
         self.face.as_face_ref()
+    }
+}
+impl<F> AsFaceRef for &PreParsedSubtables<'_, F>
+where
+    F: AsFaceRef,
+{
+    #[inline]
+    fn as_face_ref(&self) -> &ttf_parser::Face<'_> {
+        (*self).as_face_ref()
+    }
+}
+
+impl<F> FaceMut for PreParsedSubtables<'_, F>
+where
+    F: FaceMut,
+{
+    #[inline]
+    fn set_variation(&mut self, axis: ttf_parser::Tag, value: f32) -> Option<()> {
+        self.face.set_variation(axis, value)
+    }
+}
+impl<F> FaceMut for &mut PreParsedSubtables<'_, F>
+where
+    F: FaceMut,
+{
+    #[inline]
+    fn set_variation(&mut self, axis: ttf_parser::Tag, value: f32) -> Option<()> {
+        (*self).set_variation(axis, value)
     }
 }
