@@ -3,7 +3,7 @@ name = "owned_ttf_parser"
 # Version should be inline with ttf-parser
 version = "0.15.1"
 authors = ["Alex Butler <alexheretic@gmail.com>"]
-edition = "2018"
+edition = "2021"
 description = "ttf-parser plus support for owned data"
 repository = "https://github.com/alexheretic/owned-ttf-parser"
 keywords = ["ttf", "truetype", "otf", "opentype"]
