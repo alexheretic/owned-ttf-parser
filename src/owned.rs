@@ -87,6 +87,19 @@ impl crate::convert::AsFaceRef for &OwnedFace {
     }
 }
 
+impl crate::convert::FaceMut for OwnedFace {
+    #[inline]
+    fn set_variation(&mut self, axis: ttf_parser::Tag, value: f32) -> Option<()> {
+        self.0.set_variation(axis, value)
+    }
+}
+impl crate::convert::FaceMut for &mut OwnedFace {
+    #[inline]
+    fn set_variation(&mut self, axis: ttf_parser::Tag, value: f32) -> Option<()> {
+        self.0.set_variation(axis, value)
+    }
+}
+
 // Face data in a `Vec` with a self-referencing `Face`.
 struct SelfRefVecFace {
     data: Vec<u8>,
@@ -125,6 +138,19 @@ impl SelfRefVecFace {
         match self.face.as_ref() {
             Some(f) => f,
             None => unsafe { core::hint::unreachable_unchecked() },
+        }
+    }
+}
+
+impl crate::convert::FaceMut for Pin<Box<SelfRefVecFace>> {
+    fn set_variation(&mut self, axis: ttf_parser::Tag, value: f32) -> Option<()> {
+        unsafe {
+            let mut_ref = Pin::as_mut(self);
+            let mut_inner = mut_ref.get_unchecked_mut();
+            match mut_inner.face.as_mut() {
+                Some(face) => face.set_variation(axis, value),
+                None => None,
+            }
         }
     }
 }
