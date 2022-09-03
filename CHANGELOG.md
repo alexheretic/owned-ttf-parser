@@ -1,3 +1,6 @@
+# Unreleased (0.15.2)
+* Add `FaceMut::set_variation` trait abstraction for calling mutable `Face::set_variation` via `OwnedFace`.
+
 # 0.15.1
 * Add `OwnedFace::as_slice`, `OwnedFace::into_vec`.
 

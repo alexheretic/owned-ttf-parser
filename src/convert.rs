@@ -21,7 +21,7 @@ impl AsFaceRef for &ttf_parser::Face<'_> {
 /// Trait exposing mutable operations on a [`ttf_parser::Face`].
 pub trait FaceMut {
     /// Sets a variation axis coordinate.
-    /// 
+    ///
     /// See [`ttf_parser::Face::set_variation`].
     fn set_variation(&mut self, axis: ttf_parser::Tag, value: f32) -> Option<()>;
 }
