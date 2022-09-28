@@ -1,3 +1,6 @@
+# 0.16.0
+* Update _ttf-parser_ to `0.16.0`, [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0160---2022-09-18).
+
 # 0.15.2
 * Add `FaceMut::set_variation` trait abstraction for calling mutable `Face::set_variation` via `OwnedFace`.
 * Use edition 2021.

@@ -4,7 +4,7 @@ const FONT: &[u8] = include_bytes!("../fonts/font.ttf");
 
 #[test]
 fn preparse_glyph_index() {
-    let face = owned_ttf_parser::Face::from_slice(FONT, 0).unwrap();
+    let face = owned_ttf_parser::Face::parse(FONT, 0).unwrap();
 
     let pre_parse = PreParsedSubtables::from(face.clone());
 
@@ -18,7 +18,7 @@ fn preparse_glyph_index() {
 
 #[test]
 fn preparse_glyphs_kerning() {
-    let face = owned_ttf_parser::Face::from_slice(FONT, 0).unwrap();
+    let face = owned_ttf_parser::Face::parse(FONT, 0).unwrap();
 
     let pre_parse = PreParsedSubtables::from(face.clone());
 

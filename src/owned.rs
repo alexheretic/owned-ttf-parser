@@ -130,7 +130,7 @@ impl SelfRefVecFace {
             let slice: &'static [u8] = slice::from_raw_parts(b.data.as_ptr(), b.data.len());
             let mut_ref: Pin<&mut Self> = Pin::as_mut(&mut b);
             let mut_inner = mut_ref.get_unchecked_mut();
-            mut_inner.face = Some(ttf_parser::Face::from_slice(slice, index)?);
+            mut_inner.face = Some(ttf_parser::Face::parse(slice, index)?);
         }
         Ok(b)
     }
