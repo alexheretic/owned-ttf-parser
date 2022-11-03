@@ -1,3 +1,6 @@
+# Unreleased (0.17.1)
+* Add `PreParsedSubtables::glyph_variation_index`.
+
 # 0.17.0
 * Update _ttf-parser_ to `0.17.0`, [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0170---2022-09-28).
 
