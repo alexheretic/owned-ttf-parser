@@ -5,7 +5,7 @@
 //!
 //! # Example
 //! ```
-//! use owned_ttf_parser::{AsFaceRef, OwnedFace, Face};
+//! use owned_ttf_parser::{AsFaceRef, Face, OwnedFace};
 //!
 //! # let owned_font_data = include_bytes!("../fonts/font.ttf").to_vec();
 //! let owned_face = OwnedFace::from_vec(owned_font_data, 0).unwrap();
