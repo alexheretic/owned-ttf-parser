@@ -1,6 +1,7 @@
 use owned_ttf_parser::{AsFaceRef, GlyphId, PreParsedSubtables};
 
 const FONT: &[u8] = include_bytes!("../fonts/font.ttf");
+const EMOJI_FONT: &[u8] = include_bytes!("../fonts/NotoColorEmoji-Partial.ttf");
 
 #[test]
 fn preparse_glyph_index() {
@@ -13,6 +14,25 @@ fn preparse_glyph_index() {
     assert_eq!(
         pre_parse.as_face_ref().glyph_index('x'),
         face.glyph_index('x')
+    );
+}
+
+#[test]
+fn preparse_glyph_variation_index() {
+    let face = owned_ttf_parser::Face::parse(EMOJI_FONT, 0).unwrap();
+
+    let pre_parse = PreParsedSubtables::from(face.clone());
+
+    assert_eq!(
+        pre_parse.glyph_variation_index('#', '\u{FE0F}'),
+        face.glyph_variation_index('#', '\u{FE0F}')
+    );
+
+    assert_eq!(
+        pre_parse
+            .as_face_ref()
+            .glyph_variation_index('#', '\u{FE0F}'),
+        face.glyph_variation_index('#', '\u{FE0F}')
     );
 }
 

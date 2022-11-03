@@ -90,6 +90,19 @@ impl<F> PreParsedSubtables<'_, F> {
             .find_map(|t| t.glyph_index(c.into()))
     }
 
+    /// Maps a variation of a character to a `GlyphId` using pre-parsed unicode cmap subtables.
+    #[inline]
+    pub fn glyph_variation_index(&self, c: char, v: char) -> Option<GlyphId> {
+        self.subtables
+            .cmap
+            .iter()
+            .find_map(|t| t.glyph_variation_index(c.into(), v.into()))
+            .and_then(|r| match r {
+                cmap::GlyphVariationResult::Found(v) => Some(v),
+                cmap::GlyphVariationResult::UseDefault => self.glyph_index(c),
+            })
+    }
+
     /// Returns horizontal kerning for a pair of glyphs using pre-parsed kern subtables.
     #[inline]
     pub fn glyphs_hor_kerning(&self, first: GlyphId, second: GlyphId) -> Option<i16> {
