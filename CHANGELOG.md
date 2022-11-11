@@ -1,4 +1,4 @@
-# Unreleased (0.17.1)
+# 0.17.1
 * Add `PreParsedSubtables::glyph_variation_index`.
 
 # 0.17.0
