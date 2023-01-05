@@ -1,7 +1,7 @@
 [package]
 name = "owned_ttf_parser"
 # Version should be inline with ttf-parser
-version = "0.17.1"
+version = "0.18.0"
 authors = ["Alex Butler <alexheretic@gmail.com>"]
 edition = "2021"
 description = "ttf-parser plus support for owned data"
@@ -11,7 +11,7 @@ license = "Apache-2.0"
 readme="README.md"
 
 [dependencies]
-ttf-parser = { version = "0.17", default-features = false }
+ttf-parser = { version = "0.18", default-features = false }
 
 [features] 
 default = ["std", "opentype-layout", "apple-layout", "variable-fonts", "glyph-names"]
