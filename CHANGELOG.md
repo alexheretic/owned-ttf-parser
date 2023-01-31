@@ -1,3 +1,6 @@
+# 0.18.1
+* Make `PreParsedSubtables` `face` field public. This allows referencing and unwrapping the underlying face.
+
 # 0.18.0
 * Update _ttf-parser_ to `0.18.0`, [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0180---2022-12-25).
 

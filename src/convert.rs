@@ -34,6 +34,6 @@ impl FaceMut for ttf_parser::Face<'_> {
 impl FaceMut for &mut ttf_parser::Face<'_> {
     #[inline]
     fn set_variation(&mut self, axis: ttf_parser::Tag, value: f32) -> Option<()> {
-        ttf_parser::Face::set_variation(*self, axis, value)
+        ttf_parser::Face::set_variation(self, axis, value)
     }
 }
