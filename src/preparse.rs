@@ -28,7 +28,8 @@ use ttf_parser::{cmap, kern, Face, GlyphId};
 /// ```
 #[derive(Clone)]
 pub struct PreParsedSubtables<'face, F> {
-    pub(crate) face: F,
+    /// Underlying face.
+    pub face: F,
     // note must not be public as could be self-referencing
     pub(crate) subtables: FaceSubtables<'face>,
 }
