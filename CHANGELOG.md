@@ -1,3 +1,6 @@
+# Unreleased (0.19.1)
+* Guard against future soundness issues if upstream `Face` were to implement `Drop`. 
+
 # 0.19.0
 * Update _ttf-parser_ to `0.19.0`, [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0190---2023-04-17).
 
