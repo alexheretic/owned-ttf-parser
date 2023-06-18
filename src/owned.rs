@@ -1,7 +1,7 @@
 use crate::preparse::{FaceSubtables, PreParsedSubtables};
 #[cfg(not(feature = "std"))]
 use alloc::{boxed::Box, vec::Vec};
-use core::{fmt, marker::PhantomPinned, pin::Pin, slice};
+use core::{fmt, marker::PhantomPinned, mem, pin::Pin, slice};
 
 /// An owned version of font [`Face`](struct.Face.html).
 pub struct OwnedFace(Pin<Box<SelfRefVecFace>>);
@@ -62,8 +62,7 @@ impl OwnedFace {
     /// assert_eq!(owned_face.into_vec(), data_clone);
     /// ```
     pub fn into_vec(self) -> Vec<u8> {
-        // safe as the `Face` is dropped.
-        unsafe { Pin::into_inner_unchecked(self.0).data }
+        self.0.into_vec()
     }
 }
 
@@ -141,9 +140,20 @@ impl SelfRefVecFace {
     #[inline]
     #[allow(clippy::needless_lifetimes)] // explicit is nice as it's important 'static isn't leaked
     fn inner_ref<'a>(self: &'a Pin<Box<Self>>) -> &'a ttf_parser::Face<'a> {
-        match self.face.as_ref() {
-            Some(f) => f,
-            None => unsafe { core::hint::unreachable_unchecked() },
-        }
+        // Safety: if you have a ref `face` is always Some
+        unsafe { self.face.as_ref().unwrap_unchecked() }
+    }
+
+    fn into_vec(self: Pin<Box<Self>>) -> Vec<u8> {
+        // Safety: safe as `face` is dropped.
+        let mut me = unsafe { Pin::into_inner_unchecked(self) };
+        me.face.take(); // ensure dropped before taking `data`
+        mem::take(&mut me.data)
+    }
+}
+
+impl Drop for SelfRefVecFace {
+    fn drop(&mut self) {
+        self.face.take(); // ensure dropped before `data`
     }
 }
