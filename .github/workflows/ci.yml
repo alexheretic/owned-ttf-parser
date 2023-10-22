@@ -11,11 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RUST_BACKTRACE: 1
-      CARGO_REGISTRIES_CRATES_IO_PROTOCOL: sparse
     steps:
     - run: rustup update stable
     - run: rustup target add thumbv6m-none-eabi
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - run: cargo test
     - name: Build no_std
       run: cargo build --target thumbv6m-none-eabi --no-default-features --features "variable-fonts opentype-layout glyph-names"
@@ -24,5 +23,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: rustup update stable
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - run: cargo fmt -- --check
