@@ -1,7 +1,7 @@
 [package]
 name = "owned_ttf_parser"
 # Version should be inline with ttf-parser
-version = "0.22.0"
+version = "0.23.0"
 authors = ["Alex Butler <alexheretic@gmail.com>"]
 edition = "2021"
 description = "ttf-parser plus support for owned data"
@@ -11,13 +11,12 @@ license = "Apache-2.0"
 readme = "README.md"
 
 [dependencies]
-ttf-parser = { version = "0.22", default-features = false }
+ttf-parser = { version = "0.23", default-features = false }
 
 [features] 
 default = ["std", "opentype-layout", "apple-layout", "variable-fonts", "glyph-names"]
 # Activates usage of std.
 std = ["ttf-parser/std"]
-no-std-float = ["ttf-parser/no-std-float"]
 # Enables variable fonts support. Increases binary size almost twice.
 # Includes avar, CFF2, fvar, gvar, HVAR, MVAR and VVAR tables.
 variable-fonts = ["ttf-parser/variable-fonts"]
