@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v4
     - run: cargo test
     - name: Build no_std
-      run: cargo build --target thumbv6m-none-eabi --no-default-features --features "no-std-float variable-fonts opentype-layout glyph-names"
+      run: cargo build --target thumbv6m-none-eabi --no-default-features --features "variable-fonts opentype-layout glyph-names"
 
   rustfmt:
     runs-on: ubuntu-latest
