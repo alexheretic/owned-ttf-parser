@@ -1,3 +1,6 @@
+# 0.25.0
+* Update _ttf-parser_ to `0.25.0`, [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0250---2024-10-04).
+
 # 0.24.0
 * Update _ttf-parser_ to `0.24.0`, [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0240---2024-07-02).
 * Use of feature `no-std-float` is required for no-std builds.
