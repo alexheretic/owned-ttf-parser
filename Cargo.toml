@@ -9,6 +9,12 @@ repository = "https://github.com/alexheretic/owned-ttf-parser"
 keywords = ["ttf", "truetype", "otf", "opentype"]
 license = "Apache-2.0"
 readme = "README.md"
+include = [
+	"README.md",
+	"Cargo.toml",
+	"src/**/*.rs",
+        "LICENSE",
+]
 
 [dependencies]
 ttf-parser = { version = "0.25", default-features = false }
