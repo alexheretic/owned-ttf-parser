@@ -1,3 +1,7 @@
+# 0.25.1
+* Reduce size of published crate archive (148 KiB -> 9 KiB).
+* Update min _ttf-parser_ to `0.25.1`.
+
 # 0.25.0
 * Update _ttf-parser_ to `0.25.0`, [changelog](https://github.com/RazrFalcon/ttf-parser/blob/master/CHANGELOG.md#0250---2024-10-04).
 
